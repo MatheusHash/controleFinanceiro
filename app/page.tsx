@@ -28,7 +28,7 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function Home() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [user, setUser] = useState<any>();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -44,21 +44,10 @@ export default function Home() {
   // No seu componente Next.js
   async function onSubmit(values: LoginFormValues) {
     try {
-      console.log("=== ONSUBMIT INICIADO ===");
-
-      const loginResult = await login(values);
-      console.log("Login concluído:", loginResult);
-
-      // Verifica cookies no browser
-      console.log("Cookies no documento:", document.cookie);
-
-      // Aguarda um pouco
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
+      await login(values);
       const user = await getUser();
-      console.log("Usuário após login:", user);
-
       setUser(user);
+      push("/home");
     } catch (error) {
       console.error("Erro no onSubmit:", error);
     }
@@ -130,7 +119,7 @@ export default function Home() {
                   type="button"
                   variant="link"
                   onClick={() => {
-                    router.push("/register");
+                    push("/register");
                   }}
                   className="cursor-pointer p-0"
                 >
