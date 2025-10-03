@@ -13,7 +13,6 @@ export async function login(loginData: { email: string; password: string }) {
       withCredentials: true,
     }
   );
-  console.log(res);
   if (!(res.status == 201)) {
     const errorText = res.statusText;
     console.error("Erro no login:", errorText);
@@ -24,14 +23,15 @@ export async function login(loginData: { email: string; password: string }) {
 }
 
 export async function getUser() {
-  const res = await axios.get(baseUrl + "/auth/me", {
+  const res = await axios.get(baseUrl + "/auth/user/me", {
     withCredentials: true,
   });
-  console.log(`meRes`, res);
   if (!(res.status == 200)) {
     const errorText = res.statusText;
     console.error("Erro ao buscar usuário:", errorText);
     return null;
   }
+  console.log(res);
+  localStorage.setItem("user", res.data);
   return await res.data;
 }
