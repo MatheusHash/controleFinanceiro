@@ -61,7 +61,7 @@ export default function Home() {
           className="w-full h-dvh p-12 flex items-center justify-center bg-white text-[#374151]"
         >
           <div>
-            <h1 id="logo-title">CHRODAR</h1>
+            <h1 id="logo-title" className="text-primary-custom font-bold text-primary-custom">CHRODAR</h1>
             <h3 id="subtitle">o futuro te alcanca.</h3>
           </div>
         </div>
