@@ -2,15 +2,8 @@
 import type { Metadata } from "next";
 import "./../globals.css";
 import { SWRProvider } from "../providers";
-import {
-  HomeIcon,
-  LayoutDashboardIcon,
-  LogOutIcon,
-  MenuIcon,
-  TagIcon,
-  UsersIcon,
-} from "lucide-react";
-     
+import { Grid2X2Plus, HomeIcon, LogOutIcon, MenuIcon } from "lucide-react";
+
 export const metadata: Metadata = {
   title: "Chrodar - controle financeiro",
   description: "Home Chrodar",
@@ -61,7 +54,7 @@ export default function RootLayout({
                 <ul className="space-y-2 font-medium">
                   <li>
                     <a
-                      href="#"
+                      href="/home"
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group"
                     >
                       <HomeIcon size={16} />
@@ -88,18 +81,18 @@ export default function RootLayout({
                         Users
                       </span>
                     </a>
-                  </li>
+                  </li>*/}
                   <li>
                     <a
-                      href="#"
+                      href="/categories"
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group"
                     >
-                      <TagIcon size={16} />
+                      <Grid2X2Plus size={16} />
                       <span className="flex-1 ms-3 whitespace-nowrap">
                         Categories
                       </span>
                     </a>
-                  </li> */}
+                  </li>
                   <li>
                     <button className="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group">
                       <LogOutIcon size={16} />
