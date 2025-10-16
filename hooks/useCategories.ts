@@ -2,7 +2,7 @@
 import useSWR from "swr";
 
 export function useCategories() {
-  const { data, error, isLoading, mutate } = useSWR("categories");
+  const { data, error, isLoading, mutate } = useSWR("categories/");
 
   return {
     categories: data,

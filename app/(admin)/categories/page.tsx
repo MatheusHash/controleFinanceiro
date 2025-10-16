@@ -1,14 +1,14 @@
 "use client";
-import { Categories, FormCategories } from "@/components/categories/FormCategories";
+import { Categories } from "@/components/categories/Categories";
+import { FormCategories } from "@/components/categories/FormCategories";
 import { Button } from "@/components/ui/button";
 import { useCategories } from "@/hooks/useCategories";
 import { useUser } from "@/hooks/useUser";
 import { FilterIcon, PlusIcon, X } from "lucide-react";
 import { useState } from "react";
-import useSWR from "swr";
 
-export default function Home() {
-  const user = useUser();
+export default function Categorie() {
+  const { user } = useUser();
   const {
     categories,
     isErrorCategories,
@@ -16,8 +16,6 @@ export default function Home() {
     mutateCategories,
   } = useCategories();
 
-  // if (isLoadingCategories) return <p>Carregando usuário...</p>;
-  // if (isErrorCategories) return <p>Erro ao carregar usuário</p>;
   const [showFormCategorie, setShowFormCategorie] = useState<boolean>(false);
 
   return (
@@ -67,10 +65,10 @@ export default function Home() {
               <div className="p-4">
                 <FormCategories
                   action_type="create"
-                  // onSuccess={() => {
-                  //   mutateCategories();
-                  //   setShowFormCategorie(false);
-                  // }}
+                  onSuccess={() => {
+                    mutateCategories();
+                    setShowFormCategorie(false);
+                  }}
                   // onCancel={() => setShowFormCategorie(false)}
                 />
               </div>
@@ -82,7 +80,14 @@ export default function Home() {
             </div>
           </div>
         )}
-        <Categories />
+
+        {isLoadingCategories ? (
+          <p>Carregando categorias...</p>
+        ) : isErrorCategories ? (
+          <p>Erro ao carregar categorias</p>
+        ) : (
+          user && <Categories categories={categories} />
+        )}
       </div>
     </section>
   );
