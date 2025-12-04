@@ -1,20 +1,20 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronDown, ChevronUp, Wallet } from "lucide-react";
+'use client'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ChevronDown, ChevronUp, Wallet } from 'lucide-react'
 
 interface CategoryCardProps {
   category: {
-    id: number;
-    name: string;
-    type: string;
-    accounts?: { id: number; name: string }[]; // opcional
-  };
+    id: number
+    name: string
+    type: string
+    accounts?: { id: number; name: string }[] // opcional
+  }
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
-  const [showAccounts, setShowAccounts] = useState(false);
+  const [showAccounts, setShowAccounts] = useState(false)
 
   return (
     <Card className="shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 rounded-2xl">
@@ -25,9 +25,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
         </CardTitle>
         <span
           className={`px-3 py-1 text-xs rounded-full ${
-            category.type === "despesa"
-              ? "bg-red-100 text-red-600"
-              : "bg-green-100 text-green-600"
+            category.type === 'despesa' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'
           }`}
         >
           {category.type}
@@ -69,13 +67,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
                 ))}
               </ul>
             ) : (
-              <p className="text-gray-500 text-sm italic">
-                Nenhuma conta vinculada
-              </p>
+              <p className="text-gray-500 text-sm italic">Nenhuma conta vinculada</p>
             )}
           </div>
         )}
       </CardContent>
     </Card>
-  );
+  )
 }

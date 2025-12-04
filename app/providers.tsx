@@ -1,10 +1,10 @@
 // src/app/providers.tsx
-"use client";
+'use client'
 
-import { SWRConfig } from "swr";
-import api from "@/lib/axios";
+import { SWRConfig } from 'swr'
+import api from '@/lib/axios'
 
-const axiosFetcher = (url: string) => api.get(url).then((res) => res.data);
+const axiosFetcher = (url: string) => api.get(url).then((res) => res.data)
 
 export function SWRProvider({ children }: { children: React.ReactNode }) {
   return (
@@ -17,5 +17,5 @@ export function SWRProvider({ children }: { children: React.ReactNode }) {
     >
       {children}
     </SWRConfig>
-  );
+  )
 }

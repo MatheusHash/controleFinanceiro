@@ -1,5 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
+'use client'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -7,69 +7,62 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const registerSchema = z
   .object({
-    name: z.string().min(4, "Muito curto. Digite nome e sobrenome!"),
-    email: z.email("E-mail invalido"),
+    name: z.string().min(4, 'Muito curto. Digite nome e sobrenome!'),
+    email: z.email('E-mail invalido'),
     password: z
       .string()
-      .min(8, "A senha deve ter no mínimo 8 caracteres")
-      .max(64, "A senha pode ter no máximo 64 caracteres"),
+      .min(8, 'A senha deve ter no mínimo 8 caracteres')
+      .max(64, 'A senha pode ter no máximo 64 caracteres'),
     confirmPassword: z
       .string()
-      .min(8, "A senha deve ter no mínimo 8 caracteres")
-      .max(64, "A senha pode ter no máximo 64 caracteres"),
+      .min(8, 'A senha deve ter no mínimo 8 caracteres')
+      .max(64, 'A senha pode ter no máximo 64 caracteres'),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "As senhas não coincidem",
-    path: ["confirmPassword"],
-  });
+    message: 'As senhas não coincidem',
+    path: ['confirmPassword'],
+  })
 
-type RegisterFormValues = z.infer<typeof registerSchema>;
+type RegisterFormValues = z.infer<typeof registerSchema>
 
 export default function Register() {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
-  });
-  const router = useRouter();
+  })
+  const router = useRouter()
 
-  async function onSubmit(formData: any) {
-    const response = await fetch("http://127.0.0.1:5000/accounts/create", {
-      method: "POST",
+  async function onSubmit(formData: RegisterFormValues) {
+    const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}/accounts/create`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
-    });
-    console.log(response);
-    await response.json();
+      data: JSON.stringify(formData),
+    })
     if (response.status == 201) {
-      router.push(`/`);
+      router.push(`/`)
     }
   }
   return (
-    <section
-      id="register"
-      className="h-dvh w-dvw flex justify-center items-center bg-white"
-    >
+    <section id="register" className="h-dvh w-dvw flex justify-center items-center bg-white">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-[600px] text-black"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-[600px] text-black">
           <FormField
             control={form.control}
             name="name"
@@ -142,15 +135,12 @@ export default function Register() {
             )}
           />
 
-          <div
-            id="form-buttons"
-            className="space-x-6 w-full flex justify-between "
-          >
+          <div id="form-buttons" className="space-x-6 w-full flex justify-between ">
             <Button
               type="button"
               variant="destructive"
               onClick={() => {
-                router.push("/");
+                router.push('/')
               }}
               className="cursor-pointer"
             >
@@ -163,5 +153,5 @@ export default function Register() {
         </form>
       </Form>
     </section>
-  );
+  )
 }

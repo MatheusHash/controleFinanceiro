@@ -1,9 +1,9 @@
-"use client";
-import useSWR from "swr";
-import api from "@/lib/axios";
+'use client'
+import useSWR from 'swr'
+import api from '@/lib/axios'
 
 export function useUser() {
-  const { data, error, isLoading, mutate } = useSWR("me");
+  const { data, error, isLoading, mutate } = useSWR('me')
 
   return {
     user: data,
@@ -11,8 +11,8 @@ export function useUser() {
     isError: error,
     mutateUser: mutate,
     logout: async () => {
-      await api.post("/logout"); // exemplo de logout (opcional)
-      mutate(null, false); // limpa cache do usuário
+      await api.post('/logout') // exemplo de logout (opcional)
+      mutate(null, false) // limpa cache do usuário
     },
-  };
+  }
 }

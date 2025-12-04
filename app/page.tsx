@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -11,45 +11,45 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
-import { getUser, login } from "@/services/auth";
-import { useEffect, useState } from "react";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
+import { getUser, login } from '@/services/auth'
+import { useEffect, useState } from 'react'
 
 const loginSchema = z.object({
-  email: z.email("E-mail inválido").min(5, "E-mail muito curto"),
+  email: z.email('E-mail inválido').min(5, 'E-mail muito curto'),
   password: z
     .string()
-    .min(8, "A senha deve ter no mínimo 8 caracteres")
-    .max(64, "A senha pode ter no máximo 64 caracteres"),
-});
+    .min(8, 'A senha deve ter no mínimo 8 caracteres')
+    .max(64, 'A senha pode ter no máximo 64 caracteres'),
+})
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function Home() {
-  const { push } = useRouter();
-  const [user, setUser] = useState<any>();
+  const { push } = useRouter()
+  const [user, setUser] = useState<unknown>()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
+  })
   useEffect(() => {
-    getUser().then(setUser);
-  }, []);
+    getUser().then(setUser)
+  }, [])
 
   // No seu componente Next.js
   async function onSubmit(values: LoginFormValues) {
     try {
-      await login(values);
-      const user = await getUser();
-      setUser(user);
-      push("/home");
+      await login(values)
+      const user = await getUser()
+      setUser(user)
+      push('/home')
     } catch (error) {
-      console.error("Erro no onSubmit:", error);
+      console.error('Erro no onSubmit:', error)
     }
   }
 
@@ -61,7 +61,9 @@ export default function Home() {
           className="w-full h-dvh p-12 flex items-center justify-center bg-white text-[#374151]"
         >
           <div>
-            <h1 id="logo-title" className="text-primary-custom font-bold text-primary-custom">CHRODAR</h1>
+            <h1 id="logo-title" className="text-primary-custom font-bold text-primary-custom">
+              CHRODAR
+            </h1>
             <h3 id="subtitle">o futuro te alcanca.</h3>
           </div>
         </div>
@@ -119,7 +121,7 @@ export default function Home() {
                   type="button"
                   variant="link"
                   onClick={() => {
-                    push("/register");
+                    push('/register')
                   }}
                   className="cursor-pointer p-0"
                 >
@@ -134,5 +136,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  );
+  )
 }

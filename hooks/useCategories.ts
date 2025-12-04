@@ -1,13 +1,13 @@
-"use client";
-import useSWR from "swr";
+'use client'
+import useSWR from 'swr'
 
 export function useCategories() {
-  const { data, error, isLoading, mutate } = useSWR("categories/");
+  const { data, error, isLoading, mutate } = useSWR('categories/')
 
   return {
     categories: data,
     isLoadingCategories: isLoading,
     isErrorCategories: error,
     mutateCategories: mutate,
-  };
+  }
 }

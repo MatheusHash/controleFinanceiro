@@ -1,12 +1,11 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { PlusIcon } from "lucide-react";
+import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { PlusIcon } from 'lucide-react'
 import {
   Form,
   FormField,
@@ -14,52 +13,45 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "@/components/ui/form";
-import {
-  CategoryFormData,
-  categorySchema,
-} from "@/src/schemas/categories.schema";
+} from '@/components/ui/form'
+import { CategoryFormData, categorySchema } from '@/src/schemas/categories.schema'
 
 interface FormCategoriesInterface {
-  action_type: "create" | "update";
-  onSuccess?: () => void; // callback opcional após criar
-  defaultValues?: CategoryFormData;
+  action_type: 'create' | 'update'
+  onSuccess?: () => void // callback opcional após criar
+  defaultValues?: CategoryFormData
 }
 
-export function FormCategories({
-  action_type,
-  onSuccess,
-  defaultValues,
-}: FormCategoriesInterface) {
+export function FormCategories({ action_type, onSuccess, defaultValues }: FormCategoriesInterface) {
   const form = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema),
     defaultValues: defaultValues || {
-      name: "",
-      type: "despesa",
-      description: "",
+      name: '',
+      type: 'despesa',
+      description: '',
     },
-  });
+  })
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   async function onSubmit(data: CategoryFormData) {
     try {
-      console.log("data", data);
-      setLoading(true);
-      const res = await fetch("/api/categories", {
-        method: action_type === "create" ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
+      console.log('data', data)
+      setLoading(true)
+      const res = await fetch('/api/categories', {
+        method: action_type === 'create' ? 'POST' : 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
-      });
+      })
 
       // if (!res.ok) throw Error("Erro ao salvar categoria");
-      console.log(res);
-      if (onSuccess) onSuccess();
-      form.reset();
+      console.log(res)
+      if (onSuccess) onSuccess()
+      form.reset()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
@@ -119,10 +111,9 @@ export function FormCategories({
           disabled={loading}
           className="text-white bg-blue-600 hover:bg-blue-700 w-full"
         >
-          {loading ? "Salvando..." : "Criar categoria"}{" "}
-          <PlusIcon size={14} className="ml-1" />
+          {loading ? 'Salvando...' : 'Criar categoria'} <PlusIcon size={14} className="ml-1" />
         </Button>
       </form>
     </Form>
-  );
+  )
 }

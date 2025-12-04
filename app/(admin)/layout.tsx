@@ -1,19 +1,15 @@
 // src/app/layout.tsx
-import type { Metadata } from "next";
-import "./../globals.css";
-import { SWRProvider } from "../providers";
-import { Grid2X2Plus, HomeIcon, LogOutIcon, MenuIcon } from "lucide-react";
+import type { Metadata } from 'next'
+import './../globals.css'
+import { SWRProvider } from '../providers'
+import { Grid2X2Plus, HomeIcon, LogOutIcon, MenuIcon } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: "Chrodar - controle financeiro",
-  description: "Home Chrodar",
-};
+  title: 'Chrodar - controle financeiro',
+  description: 'Home Chrodar',
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="bg-white">
@@ -88,17 +84,13 @@ export default function RootLayout({
                       className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group"
                     >
                       <Grid2X2Plus size={16} />
-                      <span className="flex-1 ms-3 whitespace-nowrap">
-                        Categories
-                      </span>
+                      <span className="flex-1 ms-3 whitespace-nowrap">Categories</span>
                     </a>
                   </li>
                   <li>
                     <button className="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group">
                       <LogOutIcon size={16} />
-                      <span className="flex-1 ms-3 whitespace-nowrap">
-                        Log out
-                      </span>
+                      <span className="flex-1 ms-3 whitespace-nowrap">Log out</span>
                     </button>
                   </li>
                 </ul>
@@ -115,5 +107,5 @@ export default function RootLayout({
         </SWRProvider>
       </body>
     </html>
-  );
+  )
 }

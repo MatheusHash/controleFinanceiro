@@ -1,22 +1,17 @@
-"use client";
-import { Categories } from "@/components/categories/Categories";
-import { FormCategories } from "@/components/categories/FormCategories";
-import { Button } from "@/components/ui/button";
-import { useCategories } from "@/hooks/useCategories";
-import { useUser } from "@/hooks/useUser";
-import { FilterIcon, PlusIcon, X } from "lucide-react";
-import { useState } from "react";
+'use client'
+import { Categories } from '@/components/categories/Categories'
+import { FormCategories } from '@/components/categories/FormCategories'
+import { Button } from '@/components/ui/button'
+import { useCategories } from '@/hooks/useCategories'
+import { useUser } from '@/hooks/useUser'
+import { FilterIcon, PlusIcon, X } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Categorie() {
-  const { user } = useUser();
-  const {
-    categories,
-    isErrorCategories,
-    isLoadingCategories,
-    mutateCategories,
-  } = useCategories();
+  const { user } = useUser()
+  const { categories, isErrorCategories, isLoadingCategories, mutateCategories } = useCategories()
 
-  const [showFormCategorie, setShowFormCategorie] = useState<boolean>(false);
+  const [showFormCategorie, setShowFormCategorie] = useState<boolean>(false)
 
   return (
     <section>
@@ -24,21 +19,20 @@ export default function Categorie() {
       <div className="text-gray-700 font-normal">
         <div id="header">
           <p>
-            Voce pode criar categorias para separar suas contas de acordo com a
-            sua necessidade. Utilizar as categorias ajuda a aprimorar ainda mais
-            o seu gerenciamento financeiro com as funcionalidades que so sao
-            possiveis de utilizar quando uma conta esta dentro de alguma
-            categoria.
+            Voce pode criar categorias para separar suas contas de acordo com a sua necessidade.
+            Utilizar as categorias ajuda a aprimorar ainda mais o seu gerenciamento financeiro com
+            as funcionalidades que so sao possiveis de utilizar quando uma conta esta dentro de
+            alguma categoria.
           </p>
 
           <div id="actions">
-            <Button variant={"link"} className="text-blue-600 ">
+            <Button variant={'link'} className="text-blue-600 ">
               <FilterIcon size={12} />
               Filtrar
             </Button>
             <Button
               onClick={(e) => {
-                setShowFormCategorie(true);
+                setShowFormCategorie(true)
               }}
               className="text-white bg-blue-600"
             >
@@ -51,9 +45,7 @@ export default function Categorie() {
             <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 relative">
               {/* Header do modal */}
               <div className="flex items-center justify-between border-b p-4">
-                <h2 className="text-xl font-semibold text-gray-700">
-                  Criar Categoria
-                </h2>
+                <h2 className="text-xl font-semibold text-gray-700">Criar Categoria</h2>
                 <Button
                   onClick={() => setShowFormCategorie(false)}
                   className="text-gray-500 hover:text-gray-800"
@@ -66,16 +58,14 @@ export default function Categorie() {
                 <FormCategories
                   action_type="create"
                   onSuccess={() => {
-                    mutateCategories();
-                    setShowFormCategorie(false);
+                    mutateCategories()
+                    setShowFormCategorie(false)
                   }}
                   // onCancel={() => setShowFormCategorie(false)}
                 />
               </div>
               <div className="flex justify-end border-t p-3">
-                <Button onClick={() => setShowFormCategorie(false)}>
-                  Cancelar
-                </Button>
+                <Button onClick={() => setShowFormCategorie(false)}>Cancelar</Button>
               </div>
             </div>
           </div>
@@ -90,5 +80,5 @@ export default function Categorie() {
         )}
       </div>
     </section>
-  );
+  )
 }
