@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:5000'
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
 export async function login(loginData: { email: string; password: string }) {
   const res = await axios.post(
@@ -27,11 +27,8 @@ export async function getUser() {
     withCredentials: true,
   })
   if (!(res.status == 200)) {
-    const errorText = res.statusText
-    console.error('Erro ao buscar usuário:', errorText)
     return null
   }
-  console.log(res)
   localStorage.setItem('user', res.data)
   return await res.data
 }

@@ -3,7 +3,7 @@ export async function getLoggedUser() {
   // if (!sessionUser) return null;
   // const loggedUser = await decrypt(sessionUser);
   // console.log(loggedUser);
-  const res = await fetch('http://localhost:5000/accounts/user', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/accounts/user`, {
     method: 'GET',
     credentials: 'include',
   }).then((response) => {

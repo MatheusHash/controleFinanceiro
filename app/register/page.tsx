@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import api from '@/lib/axios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
@@ -48,15 +49,19 @@ export default function Register() {
   const router = useRouter()
 
   async function onSubmit(formData: RegisterFormValues) {
-    const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}/accounts/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: JSON.stringify(formData),
-    })
-    if (response.status == 201) {
-      router.push(`/`)
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/accounts/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      if (response.status == 201) {
+        router.push(`/`)
+      }
+    } catch (error) {
+      console.error('Erro de rede:', error)
     }
   }
   return (
