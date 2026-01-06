@@ -5,7 +5,7 @@ export async function GET() {
   const cookieStore = await cookies()
 
   // 1️⃣ Pegar o usuário logado para saber o account.id
-  const userRes = await fetch(`${process.env.API_URL}/auth/user/me`, {
+  const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user/me`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -20,7 +20,7 @@ export async function GET() {
 
   const user = await userRes.json()
   const categoriesRes = await fetch(
-    `${process.env.API_URL}/categories/account/${user.account.id}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/categories/account/${user.account.id}`,
     {
       headers: {
         Cookie: cookieStore.toString(),
@@ -29,7 +29,6 @@ export async function GET() {
   )
 
   const categories = await categoriesRes.json()
-  console.log('categories', categories)
   return NextResponse.json(categories, { status: categoriesRes.status })
 }
 
@@ -37,7 +36,7 @@ export async function POST(request: Request) {
   const cookieStore = await cookies()
 
   // 1️⃣ Pegar o usuário logado para saber o account.id
-  const userRes = await fetch(`${process.env.API_URL}/auth/user/me`, {
+  const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/user/me`, {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -57,7 +56,7 @@ export async function POST(request: Request) {
   const body = await request.json()
 
   // 3️⃣ Enviar para o backend NestJS
-  const res = await fetch(`${process.env.API_URL}/categories/create`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

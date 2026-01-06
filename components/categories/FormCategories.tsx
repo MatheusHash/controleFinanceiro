@@ -109,7 +109,7 @@ export function FormCategories({ action_type, onSuccess, defaultValues }: FormCa
         <Button
           type="submit"
           disabled={loading}
-          className="text-white bg-blue-600 hover:bg-blue-700 w-full"
+          className="text-white bg-blue-600 hover:bg-blue-700 w-full hover:cursor-pointer"
         >
           {loading ? 'Salvando...' : 'Criar categoria'} <PlusIcon size={14} className="ml-1" />
         </Button>

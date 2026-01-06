@@ -10,7 +10,9 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/', req.url))
     }
   }
-  return NextResponse.next()
+  const response = (await updateSession(req)) || NextResponse.next()
+
+  return response
 }
 
 export const config = {

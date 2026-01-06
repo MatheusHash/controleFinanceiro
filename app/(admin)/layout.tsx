@@ -3,6 +3,10 @@ import type { Metadata } from 'next'
 import './../globals.css'
 import { SWRProvider } from '../providers'
 import { Grid2X2Plus, HomeIcon, LogOutIcon, MenuIcon } from 'lucide-react'
+import Image from 'next/image'
+import { logout } from '@/lib/session'
+import { LogoutButton } from '@/components/buttons/LogoutButton'
+import { AdminLayoutButton } from '@/components/buttons/AdminLayoutButton'
 
 export const metadata: Metadata = {
   title: 'Chrodar - controle financeiro',
@@ -12,8 +16,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className="bg-white">
-        <SWRProvider>
+      <SWRProvider>
+        <body className="bg-white">
           <div className="grid grid-cols-1 overflow-y-hidden bg-transparent">
             <div className=" sm:hidden w-full h-12 bg-[#2563EB] flex px-10 justify-between">
               <span className="cursor-default self-center text-xl font-semibold whitespace-nowrap dark:text-green-neon">
@@ -38,7 +42,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               <div className="h-full px-3 py-4 overflow-y-auto bg-[#2563EB]">
                 <a href="/home" className="flex items-center ps-2.5 mb-5">
-                  <img
+                  <Image
+                    width={24}
+                    height={24}
                     src="https://flowbite.com/docs/images/logo.svg"
                     className="h-6 me-3 sm:h-7"
                     alt="Flowbite Logo"
@@ -49,13 +55,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </a>
                 <ul className="space-y-2 font-medium">
                   <li>
-                    <a
-                      href="/home"
-                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group"
-                    >
-                      <HomeIcon size={16} />
-                      <span className="ms-3">Home</span>
-                    </a>
+                    <AdminLayoutButton label="Home" href="/home" icon={<HomeIcon size={16} />} />
+                  </li>
+
+                  <li>
+                    <AdminLayoutButton
+                      label="Categories"
+                      href="/categories"
+                      icon={<Grid2X2Plus size={16} />}
+                    />
                   </li>
                   {/* <li>
                     <a
@@ -78,20 +86,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       </span>
                     </a>
                   </li>*/}
+
                   <li>
-                    <a
-                      href="/categories"
-                      className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group"
-                    >
-                      <Grid2X2Plus size={16} />
-                      <span className="flex-1 ms-3 whitespace-nowrap">Categories</span>
-                    </a>
-                  </li>
-                  <li>
-                    <button className="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-[#1d4ed8] transition-colors  group">
-                      <LogOutIcon size={16} />
-                      <span className="flex-1 ms-3 whitespace-nowrap">Log out</span>
-                    </button>
+                    <LogoutButton />
                   </li>
                 </ul>
               </div>
@@ -104,8 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </div>
           </div>
-        </SWRProvider>
-      </body>
+        </body>
+      </SWRProvider>
     </html>
   )
 }

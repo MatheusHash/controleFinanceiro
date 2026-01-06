@@ -10,34 +10,25 @@ export async function getSession() {
   return session
 }
 
-export async function encrypt(payload: unknown) {
-  return new jose.SignJWT(payload)
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setExpirationTime('12h')
-    .sign(key)
-}
-
-export async function decrypt(input: string): Promise<unknown> {
-  console.log(input)
-  console.log(key)
-  const { payload } = await jose.jwtVerify(input, key)
+export async function decrypt(token: string) {
+  const { payload } = await jose.jwtVerify(token, key)
   return payload
 }
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get('token')?.value
   if (!session) return
-
-  const parsed = await decrypt(session)
-  parsed.expires = new Date(Date.now() + 10 * 1000)
-
+  await decrypt(session)
   const res = NextResponse.next()
   res.cookies.set({
     name: 'token',
-    value: await encrypt(parsed),
+    value: session,
     httpOnly: true,
-    expires: parsed.expires,
+    // expires: parsed['expires'],
   })
   return res
+}
+
+export async function logout() {
+  ;(await cookies()).delete('token')
 }

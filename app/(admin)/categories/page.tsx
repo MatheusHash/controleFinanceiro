@@ -17,16 +17,16 @@ export default function Categorie() {
     <section>
       <h1 className="font-bold text-3xl text-gray-700 uppercase">Categorias</h1>
       <div className="text-gray-700 font-normal">
-        <div id="header">
-          <p>
+        <div id="header" className="flex justify-between">
+          <p className="max-w-2xl">
             Voce pode criar categorias para separar suas contas de acordo com a sua necessidade.
             Utilizar as categorias ajuda a aprimorar ainda mais o seu gerenciamento financeiro com
             as funcionalidades que so sao possiveis de utilizar quando uma conta esta dentro de
             alguma categoria.
           </p>
 
-          <div id="actions">
-            <Button variant={'link'} className="text-blue-600 ">
+          <div id="actions" className="flex">
+            <Button variant={'link'} className="text-blue-600 hover:cursor-pointer">
               <FilterIcon size={12} />
               Filtrar
             </Button>
@@ -34,7 +34,7 @@ export default function Categorie() {
               onClick={(e) => {
                 setShowFormCategorie(true)
               }}
-              className="text-white bg-blue-600"
+              className="text-white bg-blue-600 hover:cursor-pointer"
             >
               categoria <PlusIcon size={12} />
             </Button>
@@ -48,7 +48,7 @@ export default function Categorie() {
                 <h2 className="text-xl font-semibold text-gray-700">Criar Categoria</h2>
                 <Button
                   onClick={() => setShowFormCategorie(false)}
-                  className="text-gray-500 hover:text-gray-800"
+                  className=" hover:cursor-pointer"
                 >
                   <X size={18} />
                 </Button>
@@ -64,8 +64,13 @@ export default function Categorie() {
                   // onCancel={() => setShowFormCategorie(false)}
                 />
               </div>
-              <div className="flex justify-end border-t p-3">
-                <Button onClick={() => setShowFormCategorie(false)}>Cancelar</Button>
+              <div className="flex justify-end border-t p-3 ">
+                <Button
+                  className="hover:cursor-pointer"
+                  onClick={() => setShowFormCategorie(false)}
+                >
+                  Cancelar
+                </Button>
               </div>
             </div>
           </div>
